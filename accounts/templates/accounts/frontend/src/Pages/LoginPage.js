@@ -11,9 +11,7 @@ function LoginPage() {
             <div class="container-fluid p-0">
                 <nav class="navbar navbar-expand-lg" id="navbar" style={{position:'fixed'}}>
                     <a class="navbar-brand P-0" >
-                        {/* <Link style={{textAlign:'center'}} exact to={'/'}> */}
                         <img id="img" src={fglogo} height="100px" width="133px" alt="logo" />
-                        {/* </Link> */}
                         
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -86,7 +84,6 @@ function LoginPage() {
         </div>
     </header>
             
-        <h1>welcome to login</h1>
         <Login/>
         
         </div>

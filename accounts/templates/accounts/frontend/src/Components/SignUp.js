@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import LockIcon from '@material-ui/icons/Lock';
-import PersonIcon from '@material-ui/icons/Person';
-import MailIcon from '@material-ui/icons/Mail';
-import PhoneIcon from '@material-ui/icons/Phone';
+import LockIcon from "@material-ui/icons/Lock";
+import PersonIcon from "@material-ui/icons/Person";
+import MailIcon from "@material-ui/icons/Mail";
+import PhoneIcon from "@material-ui/icons/Phone";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const SignUp = () => {
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  // const handleMouseDownPassword = (event) => {
+  //   event.preventDefault();
+  // };
+
+  const [phoneValue, setPhoneValue] = useState();
 
   const [user, setUser] = useState({
     name: "",
@@ -37,7 +55,7 @@ const SignUp = () => {
 
     const { name, email, phone, password, cpassword } = user;
 
-    const res = await fetch("/register", {
+    const res = await fetch("/localhost:5000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,58 +78,63 @@ const SignUp = () => {
     } else {
       window.alert("registereed successful");
       console.log("registereed successful");
-      
     }
   };
 
+  
+
+  
+
   return (
     <div>
-    <div style={{ height: "80px" }}></div>
-    <div className="signup-container">
-      <div id="login-div" className="">
-        <div className="fields ">
-          <span style={{ width: "100%" }} className="fields-span">
+      <div style={{ height: "90px" }}></div>
+      <div className="signup-container">
+        <div id="login-div" className="">
+          <div className="fields ">
+            {/* <span style={{ width: "100%" }} className="fields-span">
             Register 
-          </span>
-          {/* <span
-            style={{ display: "block", width: "100%", marginBottom: 1 + "rem" }}
-          >
-            Sign in and continue your journey.
           </span> */}
-        </div>
-        <div className="md:max-w-sm md:mx-auto signup-box">
-          <span style={{ display: "block" }} className="fields-span">
-            SignUp
-          </span>
-          <form method="POST" className="login-form">
-            <div className="field">
-              <label className="label" htmlFor="name">
-                Name
-              </label>
-              <div className="inputt">
-                  <PersonIcon/>
-                    <input
-                        type="text"
-                        id="name"
-                        className="inputt-area"
-                        placeholder="Name"
-                        name="name"
-                        value={user.name}
-                        onChange={handleChange}
-                        autoComplete="off"
-                    />
+          </div>
+          <div className="md:max-w-sm md:mx-auto signup-box">
+            <span style={{ display: "block" }} className="fields-span">
+              SignUp
+            </span>
+            <span
+              style={{
+                display: "block",
+                width: "100%",
+                marginBottom: 2 + "rem",
+              }}
+            >
+              <h6> Welcome To Open Banking</h6>
+            </span>
+            <form method="POST" className="login-form">
+              <div className="field">
+                <label className="label" htmlFor="name">
+                  Name
+                </label>
+                <div className="inputt">
+                  <PersonIcon />
+                  <input
+                    required
+                    type="text"
+                    id="name"
+                    className="inputt-area"
+                    placeholder="Name"
+                    name="name"
+                    value={user.name}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
 
-              
-            </div>
-
-            <div className="field">
-              <label className="label" htmlFor="email">
-                E-Mail Address
-              </label>
-              <div className="inputt">
-                    <MailIcon/>
-                    <input
+              <div className="field">
+                <label className="label" htmlFor="email">
+                  E-Mail Address
+                </label>
+                <div className="inputt">
+                  <MailIcon />
+                  <input
                     type="email"
                     id="email"
                     className="inputt-area"
@@ -119,16 +142,15 @@ const SignUp = () => {
                     name="email"
                     value={user.email}
                     onChange={handleChange}
-                />
+                  />
+                </div>
               </div>
-              
-            </div>
 
-            <div className="field">
-              <label className="label" htmlFor="phone">
-                phone
-              </label>
-              <div className="inputt">
+              <div className="field">
+                <label className="label" htmlFor="phone">
+                  phone
+                </label>
+                {/* <div className="inputt">
                 <PhoneIcon/>
                 <input
                 type="text"
@@ -140,75 +162,97 @@ const SignUp = () => {
                 
                 onChange={handleChange}
               />
+              </div> */}
+
+                <PhoneInput
+                  // className="inputt"
+                  placeholder="Enter phone number"
+                  international
+                  countryCallingCodeEditable={false}
+                  defaultCountry="IN"
+                  value={phoneValue}
+                  onChange={setPhoneValue}
+                />
               </div>
-              
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="password">
-                Password
-              </label>
-              <div className="inputt">
-                <LockIcon/>
-                <input
-                type="password"
-                id="password"
-                className="inputt-area"
-                placeholder="Password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-              />
-              </div>
-              
-            </div>
-            <div className="field">
-              <label className="label" htmlFor="cpassword">
-                Confirm Password
-              </label>
-              <div className="inputt">
-                  <LockIcon/>
+              <div className="field">
+                <label className="label" htmlFor="password">
+                  Password
+                </label>
+                <div className="inputt">
+                  <LockIcon />
                   <input
-                    type="password"
+                    type={values.showPassword ? "text" : "password"}
+                    id="password"
+                    className="inputt-area"
+                    placeholder="Password"
+                    name="password"
+                    value={user.password}
+                    onChange={handleChange}
+                  />
+                  <IconButton
+                    style={{ height: "5px" }}
+                    onClick={handleClickShowPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </div>
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="cpassword">
+                  Confirm Password
+                </label>
+                <div className="inputt">
+                  <LockIcon />
+                  <input
+                    type={values.showPassword ? "text" : "password"}
                     id="cpassword"
                     className="inputt-area"
                     placeholder="Confirm your password"
                     name="cpassword"
                     value={user.cpassword}
                     onChange={handleChange}
-              />
+                  />
+                  <IconButton
+                    style={{ height: "5px" }}
+                    onClick={handleClickShowPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </div>
               </div>
-              
-            </div>
+              </form>
 
-
-            <div  style={{  textAlign:"center" , display:'flex' , flexDirection:'column' }}>
-            <div className="field" >
-              <button
-                style={{ cursor: "pointer" , textAlign:"center" }}
-                value="register"
-                onClick={PostData}
-                className="form-button mr-20"
+              <div
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
-                Register
-              </button>
-            </div>
+                <div className="field">
+                  <button
+                    style={{ cursor: "pointer", textAlign: "center" }}
+                    value="register"
+                    onClick={PostData}
+                    className="form-button mr-20"
+                  >
+                    Register
+                  </button>
+                </div>
 
-            <div>
-            <NavLink to="/login">
-            <button
-                style={{ cursor: "pointer" , textAlign:"center" }}
-                className="form-button"
-              >
-               Log In
-              </button>
-              </NavLink>
-            </div>
-            </div>
-
-          </form>
+                <div>
+                  <p style={{ cursor: "pointer", textAlign: "center" }}>
+                    Already Have Account ?{" "}
+                    <NavLink to="/login" className="links">
+                      Log In
+                    </NavLink>
+                  </p>
+                </div>
+              </div>
+            
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

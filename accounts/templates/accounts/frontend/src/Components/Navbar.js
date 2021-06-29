@@ -1,8 +1,6 @@
 import React from 'react'
 import fglogo from '../Assets/fglogo.svg'
-import img1 from '../Assets/businessintelligence4.jpeg'
 import vid from '../Assets/openbank.mp4'
-import {Link} from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 
 function Navbar() {
@@ -12,9 +10,7 @@ function Navbar() {
             <div class="container-fluid p-0">
                 <nav class="navbar navbar-expand-lg" id="navbar" style={{position:'fixed'}}>
                     <a class="navbar-brand P-0" >
-                        {/* <Link style={{textAlign:'center'}} exact to={'/'}> */}
                         <img id="img" src={fglogo} height="100px" width="133px" alt="logo" />
-                        {/* </Link> */}
                         
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"

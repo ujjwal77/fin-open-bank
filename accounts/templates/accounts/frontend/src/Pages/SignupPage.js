@@ -4,17 +4,15 @@ import fglogo from '../Assets/fglogo.svg'
 import { NavLink } from 'react-router-dom'
 
 function SignupPage() {
+
     return (
         <div>
         <header>
     <div class="content-color">
         <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg" id="navbar" style={{position:'fixed'}}>
-                <a class="navbar-brand P-0" >
-                    {/* <Link style={{textAlign:'center'}} exact to={'/'}> */}
-                    <img id="img" src={fglogo} height="100px" width="133px" alt="logo" />
-                    {/* </Link> */}
-                    
+                <a class="navbar-brand P-0" >                  
+                    <img id="img" src={fglogo} height="100px" width="133px" alt="logo" /> 
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleClock()" id="clockButton">
@@ -86,7 +84,7 @@ function SignupPage() {
     </div>
 </header>
         
-    <h1>welcome to login</h1>
+    {/* <h1>welcome to login</h1> */}
     <SignUp/>
     
     </div>

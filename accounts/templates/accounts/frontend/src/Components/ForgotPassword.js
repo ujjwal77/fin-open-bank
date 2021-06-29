@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
-import LockIcon from '@material-ui/icons/Lock';
-import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from "@material-ui/icons/Lock";
+import PersonIcon from "@material-ui/icons/Person";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-function Login() {
-
+function ForgotPassword() {
   const [values, setValues] = useState({
     showPassword: false,
   });
@@ -16,9 +16,13 @@ function Login() {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   let name, value;
@@ -35,52 +39,26 @@ function Login() {
     e.preventDefault();
     alert("login working");
   };
-
-  const PostData = async (e) => {
-    e.preventDefault();
-
-    const { email, password } = user;
-
-    const res = await fetch("/userlogin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await res.json();
-    console.log(data);
-    console.log(data.msg);
-
-    if (data.msg !== "success") {
-      window.alert("Invalid registration");
-    } else {
-      window.alert("login successful");
-      console.log("login successful");
-    }
-  };
-
   return (
     <div>
       <div style={{ height: "90px" }}></div>
       <body className="login-container">
         <div id="login-div" className="">
           <div className="fields ">
-            <span style={{ width: '100%', }} className="fields-span">
-              Welcome back!
+            <span style={{ width: "100%" }} className="fields-span">
+              Reset Password
             </span>
-            <span style={{ display: 'block', width: '100%', marginBottom: 1 + 'rem' }} >
-              Sign in and continue your journey.
+            <span
+              style={{
+                display: "block",
+                width: "100%",
+                marginBottom: 1 + "rem",
+              }}
+            >
+              Create a new password to login your account.
             </span>
           </div>
           <div className="  md:max-w-sm md:mx-auto login-box">
-            <span style={{ display: 'block' }} className="fields-span">
-              Login
-            </span>
             <form className="login-form" onSubmit={handleSubmit} method="POST">
               <div className="field md:w-full">
                 <label for="email" className=" label">
@@ -99,13 +77,15 @@ function Login() {
                     onChange={handleChange}
                   />
                 </div>
-
               </div>
               <div className="field md:w-full">
                 <label for="password" className="label">
-                  Password
+                  Enter New Password
                 </label>
-                <div className="inputt" style={{display:'flex',alignItems:'center'}}>
+                <div
+                  className="inputt"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   <LockIcon />
                   <input
                     className="inputt-area"
@@ -117,43 +97,59 @@ function Login() {
                     value={user.password}
                     onChange={handleChange}
                   />
-                  <IconButton style={{height:"5px"}}
+                  <IconButton
+                    style={{ height: "5px" }}
                     onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
                   >
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
-
                 </div>
-
               </div>
-              </form>
 
-              <p style={{ cursor: "pointer" , textAlign:"right" }}>
-                <NavLink to="/forgotpassword" className="links">Forgot password?</NavLink>
-              </p>
-
-            <NavLink to="/user" style={{  textAlign:"center" , display:'flex' , flexDirection:'column' }}>
-              <div className="field" >
-                <button
-                  style={{ cursor: "pointer" , textAlign:"center" }}
-                  value="login"
-                  onClick={PostData}
-                  className="form-button mr-20"
+              <div className="field md:w-full">
+                <label for="password" className="label">
+                  Re-Enter New Password 
+                </label>
+                <div
+                  className="inputt"
+                  style={{ display: "flex", alignItems: "center" }}
                 >
-                  Login
-                </button>
+                  <LockIcon />
+                  <input
+                    className="inputt-area"
+                    required
+                    type={values.showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    value={user.password}
+                    onChange={handleChange}
+                  />
+                  <IconButton
+                    style={{ height: "5px" }}
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </div>
               </div>
-            </NavLink>
-            
-            <p style={{ cursor: "pointer" , textAlign:"center" }}>
-                Don't Have An Account ? <NavLink to="/signup" className="links">SignUp <i class="fa fa-arrow-right"></i></NavLink>
-            </p>
 
-            
+              <NavLink to="/user">
+                <button className=" form-button">Reset Password</button>
+              </NavLink>
+            </form>
 
-            <br />
-
-            
+        <br/>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <NavLink to="/login" className="links">
+            <p style={{ cursor: "pointer" , textAlign:"center" }}><PersonIcon />login</p>
+        </NavLink>
+        <NavLink to="/signup" className="links">
+            <p style={{ cursor: "pointer" , textAlign:"center" }}><PersonAddIcon />create new account</p>
+        </NavLink>
+        </div>
 
           </div>
         </div>
@@ -162,4 +158,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

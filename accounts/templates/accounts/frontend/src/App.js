@@ -3,9 +3,9 @@ import React from 'react';
 import FrontPage from './Pages/FrontPage';
 import {Route,Switch} from 'react-router-dom';
 import LoginPage from './Pages/LoginPage';
-// import SignUp from '../src/Components/SignUp'
 import SignupPage from './Pages/SignupPage';
 import User from './Pages/User';
+import ForgotPasswordPage from './Pages/ForgotPasswordPage';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" component={FrontPage} exact/>
           <Route path="/login" component={LoginPage}/>
           <Route path="/signup" component={SignupPage}/>
+          <Route path="/forgotpassword" component={ForgotPasswordPage}/>
           <Route path="/user" component={User}/>
       </Switch>
     </div>
